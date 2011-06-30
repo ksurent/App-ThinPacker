@@ -1,5 +1,4 @@
 package App::ThinPacker;
-use 5.8;
 
 =pod
 
@@ -49,6 +48,7 @@ This program is free software, you can redistribute it under the same terms as P
 
 =cut
 
+use 5.008;
 use strict;
 use warnings;
 
