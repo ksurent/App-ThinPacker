@@ -66,8 +66,8 @@ sub run {
     my $includes = $ppi->find('Statement::Include');
 
     my $deps = join ' ',
-               grep { $_ !~ /^(?:strict|warnings|diagnostics|base|integer)$/ }
-               map { $_->module }
+               grep { $_ and $_ !~ /^(?:strict|warnings|diagnostics|base|integer)$/ }
+               map  { $_->module }
                @$includes;
 
     my $inject = join '', map { s/%%DEPS%%/$deps/; $_ } <DATA>;
