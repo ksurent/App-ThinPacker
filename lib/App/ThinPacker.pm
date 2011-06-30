@@ -55,6 +55,7 @@ use warnings;
 use PPI;
 use Pod::Find;
 use Pod::Usage;
+use Module::CoreList;
 
 our $VERSION = '0.1';
 
@@ -66,7 +67,7 @@ sub run {
     my $includes = $ppi->find('Statement::Include');
 
     my $deps = join ' ',
-               grep { $_ and $_ !~ /^(?:strict|warnings|diagnostics|base|integer)$/ }
+               grep { $_ and not is_core($_) }
                map  { $_->module }
                @$includes;
 
@@ -82,6 +83,14 @@ sub run {
 
         print $line;
     }
+}
+
+sub is_core {
+    my $module = shift;
+
+    my($found_in_core) = Module::CoreList->find_modules(qr/^\Q$module\E$/, $]);
+
+    !!$found_in_core;
 }
 
 sub usage {
