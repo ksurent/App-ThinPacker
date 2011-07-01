@@ -63,6 +63,8 @@ sub run {
     my $arg = shift or usage();
     usage(2) if $arg eq '-h' or $arg eq '--help';
 
+    my $cpanm_args = join ' ', @_;
+
     my $ppi      = PPI::Document->new($arg) or usage();
     my $includes = $ppi->find('Statement::Include');
 
@@ -71,7 +73,7 @@ sub run {
                map  { $_->module }
                @$includes;
 
-    my $inject = join '', map { s/%%DEPS%%/$deps/; $_ } <DATA>;
+    my $inject = join '', map { s/%%DEPS%%/$deps/; s/%%CPANMARGS%%/$cpanm_args/g; $_ } <DATA>;
 
     open my $script, '<', $arg or exit print "Cannot open $arg: $!\n";
     my $not_injected = 1;
@@ -123,9 +125,9 @@ __DATA__
                                      "\r\n";
             my $cpanm = do { local $/; <$sock> };
             close $sock;
-            open my $sudoperl, '|perl - --self-upgrade --sudo';
-            print $sudoperl $cpanm;
-            close $sudoperl;
+            open my $perl, '|perl - --self-upgrade %%CPANMARGS%%';
+            print $perl $cpanm;
+            close $perl;
         }
-        system(qw/cpanm --sudo/, @inst);
+        system(qw/cpanm %%CPANMARGS%%/, @inst);
     }
