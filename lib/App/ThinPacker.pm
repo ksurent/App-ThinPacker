@@ -62,7 +62,7 @@ use PPI;
 use Pod::Find;
 use Pod::Usage;
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 
 sub run {
     my $arg = shift or usage();
