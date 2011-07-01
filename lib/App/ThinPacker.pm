@@ -110,12 +110,12 @@ __DATA__
     package main;
     use IO::Socket::INET;
     my @deps = qw(%%DEPS%%);
-    my @inst;
+    my @missing;
     for my $dep (@deps) {
     	eval "require $dep";
-    	push @inst, $dep if $@;
+    	push @missing, $dep if $@;
     }
-    if (@inst) {
+    if (@missing) {
         local $@;
     	eval "require App::cpanminus";
     	if ($@) {
@@ -129,5 +129,5 @@ __DATA__
             print $perl $cpanm;
             close $perl;
         }
-        system(qw/cpanm %%CPANMARGS%%/, @inst);
+        system(qw/cpanm %%CPANMARGS%%/, @missing);
     }
