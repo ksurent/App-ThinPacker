@@ -28,8 +28,6 @@ L<App::cpanminus>
 
 =item Rudimentary parsing
 
-=item Default --sudo for cpanm
-
 =item Downloading cpanm from third-party source
 
 =back
