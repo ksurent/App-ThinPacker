@@ -112,8 +112,9 @@ __DATA__
     my @deps = qw(%%DEPS%%);
     my @missing;
     for my $dep (@deps) {
+        local $@;
     	eval "require $dep";
-    	push @missing, $dep if $@;
+    	push @missing, $dep if $@ and $@ =~ /^Can't locate/;
     }
     if (@missing) {
         local $@;
