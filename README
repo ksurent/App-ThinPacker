@@ -9,6 +9,17 @@ DESCRIPTION
 SYNOPSIS
         thinpack your-script.pl > your-script-dist.pl
 
+        thinpack your-script.pl --sudo > your-script.pl
+
+  NOTE ABOUT CPANM
+
+    You can specify custom arguments after your script filename. Those
+    arguments will be passed to all `cpanm' calls.
+
+    This way you can enable interactive installation (`--interactive'),
+    disable testing (`--no-test'), require root privelegies (`--sudo'), and
+    do other useful things. For more options see App::cpanminus.
+
 SEE ALSO
     App::FatPacker
 
@@ -18,7 +29,6 @@ BUGS AND TODO
     No Windows support
     Rudimentary parsing
     Downloading cpanm from third-party source
-
 AUTHOR
     Alex Kapranoff <kappa@cpan.org>
 

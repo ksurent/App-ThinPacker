@@ -14,6 +14,14 @@ Enables your scripts to autoinstall their dependencies by injecting a small piec
 
     thinpack your-script.pl > your-script-dist.pl
 
+    thinpack your-script.pl --sudo > your-script.pl
+
+=head2 NOTE ABOUT CPANM
+
+You can specify custom arguments after your script filename. Those arguments will be passed to all C<cpanm> calls.
+
+This way you can enable interactive installation (C<--interactive>), disable testing (C<--no-test>), require root privelegies (C<--sudo>), and do other useful things. For more options see L<App::cpanminus>.
+
 =head1 SEE ALSO
 
 L<App::FatPacker>
