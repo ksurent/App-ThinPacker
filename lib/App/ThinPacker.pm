@@ -113,13 +113,13 @@ __DATA__
     my @missing;
     for my $dep (@deps) {
         local $@;
-    	eval "require $dep";
-    	push @missing, $dep if $@ and $@ =~ /^Can't locate/;
+        eval "require $dep";
+        push @missing, $dep if $@ and $@ =~ /^Can't locate/;
     }
     if (@missing) {
         local $@;
-    	eval "require App::cpanminus";
-    	if ($@) {
+        eval "require App::cpanminus";
+        if ($@) {
             my $sock = IO::Socket::INET->new('kapranoff.ru:80');
             print $sock join "\r\n", "GET /cpanm HTTP/1.0",
                                      "Connection: close",
